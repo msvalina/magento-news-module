@@ -1,0 +1,53 @@
+<?php
+
+    $_news = $this->getNews();
+    $_news_id = $_news->getId();
+    $_customer_name = Mage::helper('inchoo_newwssii')->getCustomerName();
+
+?>
+
+<h1>News</h1>
+
+
+<div>
+
+    <?php echo $_news->getNews(); ?>
+
+    <br>
+</div>
+
+<h2>Comments</h2>
+
+<?php if(!$this->getCollection()->count()) : ?>
+
+    <p>No comments</p>
+
+<?php else:  ?>
+
+    <?php foreach ($this->getCollection() as $_comment ): ?>
+        <p><?php echo $this->escapeHtml($_comment->getComment()); ?></p>
+    <?php endforeach; ?>
+
+
+<?php endif; ?>
+
+
+<?php if ($this->helper('customer')->isLoggedIn()): ?>
+
+    <br>
+    <form method='post' action="<?php echo $this->getUrl('news/detail/commentpost/', array('id' => $_news_id)) ?>">
+
+        Comment:<br>
+        <textarea name='comment' id='comment'></textarea>
+        <br>
+        Comment as:<br>
+        <input type='text' name='name' id='name' value="<?php echo $this->escapeHtml($_customer_name); ?>" readonly/>
+        <br>
+
+        <input type='submit' value='Submit' />
+    </form>
+
+<?php else: ?>
+    <p>You should login first man!</p>
+
+<?php endif; ?>

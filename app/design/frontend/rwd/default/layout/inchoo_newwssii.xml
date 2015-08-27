@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+
+    <inchoo_newwssii_detail_view>
+
+        <reference name="root">
+            <action method="setTemplate"><arg1>page/1column.phtml</arg1></action>
+        </reference>
+
+
+        <reference name="content">
+            <block type="inchoo_newwssii/detail" name="inchoo_newwssii.detail_view"
+                   template="inchoo_newwssii/detail_view.phtml"
+            />
+        </reference>
+
+    </inchoo_newwssii_detail_view>
+
+    <inchoo_newwssii_index_showall>
+
+        <reference name="root">
+            <action method="setTemplate"><arg1>page/1column.phtml</arg1></action>
+        </reference>
+
+
+        <reference name="content">
+            <block type="inchoo_newwssii/showall" name="inchoo_newwssii.index_showall"
+                   template="inchoo_newwssii/show_all.phtml"
+            />
+        </reference>
+
+    </inchoo_newwssii_index_showall>
+
+</layout>
