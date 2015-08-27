@@ -31,6 +31,11 @@ class Inchoo_Newwssii_DetailController extends Mage_Core_Controller_Front_Action
     {
         $id = $this->getRequest()->getParam('id', false);
 
+        $comments_enabled = Mage::helper('inchoo_newwssii')->getCommentsEnabled();
+        if($comments_enabled === '0') {
+            Mage::log("Somebody is trying to be funny", null, 'commentspost.log', true);
+        }
+
         if(!Mage::helper('inchoo_newwssii')->isLoggedIn()) {
 
             $this->_redirect('customer/account/login/');

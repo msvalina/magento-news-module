@@ -3,22 +3,28 @@
     $_news = $this->getNews();
     $_news_id = $_news->getId();
     $_customer_name = Mage::helper('inchoo_newwssii')->getCustomerName();
+    $_comments_enabled = Mage::helper('inchoo_newwssii')->getCommentsEnabled();
 
 ?>
 
 <h1>News</h1>
 
-
 <div>
 
     <?php echo $_news->getNews(); ?>
-
     <br>
+    <br>
+    <br>
+
 </div>
 
 <h2>Comments</h2>
 
-<?php if(!$this->getCollection()->count()) : ?>
+<?php if($_comments_enabled === '0') : ?>
+
+    <p>comments are disabled</p>
+
+<?php elseif(!$this->getCollection()->count()) : ?>
 
     <p>No comments</p>
 
@@ -31,23 +37,24 @@
 
 <?php endif; ?>
 
+<?php if($_comments_enabled === '1') : ?>
+    <?php if ($this->helper('customer')->isLoggedIn()): ?>
 
-<?php if ($this->helper('customer')->isLoggedIn()): ?>
-
-    <br>
-    <form method='post' action="<?php echo $this->getUrl('news/detail/commentpost/', array('id' => $_news_id)) ?>">
-
-        Comment:<br>
-        <textarea name='comment' id='comment'></textarea>
         <br>
-        Comment as:<br>
-        <input type='text' name='name' id='name' value="<?php echo $this->escapeHtml($_customer_name); ?>" readonly/>
-        <br>
+        <form method='post' action="<?php echo $this->getUrl('news/detail/commentpost/', array('id' => $_news_id)) ?>">
 
-        <input type='submit' value='Submit' />
-    </form>
+            Comment:<br>
+            <textarea name='comment' id='comment'></textarea>
+            <br>
+            Comment as:<br>
+            <input type='text' name='name' id='name' value="<?php echo $this->escapeHtml($_customer_name); ?>" readonly/>
+            <br>
 
-<?php else: ?>
-    <p>You should login first man!</p>
+            <input type='submit' value='Submit' />
+        </form>
 
+    <?php else: ?>
+        <p>You should login first man!</p>
+
+    <?php endif; ?>
 <?php endif; ?>

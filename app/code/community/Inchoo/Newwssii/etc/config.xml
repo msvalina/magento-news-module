@@ -58,4 +58,22 @@
             </inchoo_newwssii>
         </helpers>
     </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Inchoo_Newwssii before="Mage_Adminhtml">Inchoo_Newwssii_Adminhtml</Inchoo_Newwssii>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <default>
+        <inchoo_newwssii>
+            <settings>
+                <comments_enabled>1</comments_enabled>
+            </settings>
+        </inchoo_newwssii>
+    </default>
 </config>

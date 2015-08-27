@@ -2,6 +2,12 @@
 
 class Inchoo_Newwssii_Helper_Data extends Mage_Core_Helper_Data
 {
+    const XML_PATH_COMMENTS_ENABLED = 'inchoo_newwssii/settings/comments_enabled';
+
+    public function getCommentsEnabled($store = null)
+    {
+        return Mage::getStoreConfig(self::XML_PATH_COMMENTS_ENABLED, $store);
+    }
 
     public function isLoggedIn()
     {
