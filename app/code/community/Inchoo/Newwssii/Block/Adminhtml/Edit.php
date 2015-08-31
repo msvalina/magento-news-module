@@ -1,51 +1,37 @@
 <?php
 
-class Inchoo_Newwssii_Block_Adminhtml_Edit extends Mage_Adminhtml_Block_Widget_Form
+class Inchoo_Newwssii_Block_Adminhtml_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
+
+    protected $_blockGroup = 'inchoo_newwssii';
+    protected $_controller = 'adminhtml';
+    protected $_objectId = 'news_id';
 
     public function __construct()
     {
         parent::__construct();
+
+        $this->_updateButton('save', 'label', Mage::helper('inchoo_newwssii')->__('Save News'));
+        $this->_updateButton('delete', 'label', Mage::helper('inchoo_newwssii')->__('Delete News'));
+
+        $this->_addButton('saveandcontinue', array(
+            'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
+            'onclick'   => 'saveAndContinueEdit()',
+            'class'     => 'save',
+        ), -100);
+
     }
 
-    public function getModel()
+    public function getHeaderText()
     {
-        return Mage::registry('current_news');
-    }
-
-    protected function _prepareForm()
-    {
-        $model  = $this->getModel();
-
-        $form   = new Varien_Data_Form(array(
-            'id'        => 'edit_form',
-            'action'    => $this->getData('action'),
-            'method'    => 'post'
-        ));
-
-        $fieldset   = $form->addFieldset('base_fieldset', array(
-            'legend'    => Mage::helper('inchoo_newwssii')->__('News Information'),
-            'class'     => 'fieldset-wide'
-        ));
-
-        if ($model->getId()) {
-            $fieldset->addField('id', 'hidden', array(
-                'name'      => 'id',
-                'value'     => $model->getId(),
-            ));
+        if (Mage::registry('current_news')->getId()) {
+            return Mage::helper('inchoo_newwssii')->__("Edit News");
         }
-
-        $fieldset->addField('news', 'editor', array(
-            'name'          =>'styles',
-            'label'         => Mage::helper('inchoo_newwssii')->__('News'),
-            'container_id'  => 'news',
-            'value'         => $model->getNews()
-        ));
-
-        $form->setAction($this->getUrl('*/*/save'));
-        $form->setUseContainer(true);
-        $this->setForm($form);
-
-        return parent::_prepareForm();
+        else {
+            return Mage::helper('inchoo_newwssii')->__('New News');
+        }
     }
+
+
 }
+

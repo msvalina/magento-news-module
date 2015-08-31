@@ -10,6 +10,8 @@ class Inchoo_Newwssii_Block_Adminhtml_News extends Mage_Adminhtml_Block_Widget_G
         $this->_controller = 'adminhtml_news';
 
         $this->_headerText = Mage::helper('inchoo_newwssii')->__('News admin page');
+        $this->_addButtonLabel = Mage::helper('inchoo_newwssii')->__('Add News');
+
         parent::__construct();
 
     }

@@ -5,7 +5,6 @@ class Inchoo_Newwssii_Adminhtml_NewsController extends Mage_Adminhtml_Controller
 
     public function indexAction()
     {
-
         $this->loadLayout();
 
         $this->loadLayout()->_setActiveMenu('news/inchoo_newwssii');
@@ -61,5 +60,25 @@ class Inchoo_Newwssii_Adminhtml_NewsController extends Mage_Adminhtml_Controller
 
     }
 
+    public function saveAction()
+    {
+        $request = $this->getRequest();
+        if (!$request->isPost()) {
+            $this->getResponse()->setRedirect($this->getUrl('*/news'));
+        }
+
+        $news = Mage::getModel('inchoo_newwssii/news');
+
+        if ($id = (int) $request->getParam('id')) {
+            $news->load($id);
+        }
+        try {
+            //getParams and save
+
+        }
+        catch (Mage_Core_Exception $e) {
+
+        }
+    }
 
 }
