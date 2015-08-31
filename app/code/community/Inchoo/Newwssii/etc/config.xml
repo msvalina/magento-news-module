@@ -63,7 +63,7 @@
             <adminhtml>
                 <args>
                     <modules>
-                        <Inchoo_Newwssii before="Mage_Adminhtml">Inchoo_Newwssii_Adminhtml</Inchoo_Newwssii>
+                        <Inchoo_Newwssii after="Mage_Adminhtml">Inchoo_Newwssii_Adminhtml</Inchoo_Newwssii>
                     </modules>
                 </args>
             </adminhtml>

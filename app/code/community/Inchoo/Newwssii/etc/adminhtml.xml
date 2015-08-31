@@ -19,4 +19,17 @@
             </admin>
         </resources>
     </acl>
+    <menu>
+        <inchoo_news translate="title" module="inchoo_newwssii">
+            <title>Inchoo News</title>
+            <sort_order>15</sort_order>
+            <children>
+                <inchoo_newwssii translate="title" module="inchoo_newwssii">
+                    <title>News</title>
+                    <sort_order>1</sort_order>
+                    <action>adminhtml/news/</action>
+                </inchoo_newwssii>
+            </children>
+        </inchoo_news>
+    </menu>
 </config>
