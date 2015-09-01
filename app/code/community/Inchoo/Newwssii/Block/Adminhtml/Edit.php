@@ -5,7 +5,7 @@ class Inchoo_Newwssii_Block_Adminhtml_Edit extends Mage_Adminhtml_Block_Widget_F
 
     protected $_blockGroup = 'inchoo_newwssii';
     protected $_controller = 'adminhtml';
-    protected $_objectId = 'news_id';
+    protected $_objectId = 'id';
 
     public function __construct()
     {
@@ -19,6 +19,8 @@ class Inchoo_Newwssii_Block_Adminhtml_Edit extends Mage_Adminhtml_Block_Widget_F
             'onclick'   => 'saveAndContinueEdit()',
             'class'     => 'save',
         ), -100);
+
+
 
     }
 

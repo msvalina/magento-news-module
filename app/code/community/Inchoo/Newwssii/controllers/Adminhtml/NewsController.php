@@ -2,7 +2,6 @@
 
 class Inchoo_Newwssii_Adminhtml_NewsController extends Mage_Adminhtml_Controller_Action
 {
-
     public function indexAction()
     {
         $this->loadLayout();
@@ -63,22 +62,72 @@ class Inchoo_Newwssii_Adminhtml_NewsController extends Mage_Adminhtml_Controller
     public function saveAction()
     {
         $request = $this->getRequest();
+        Mage::log($request->getParams(), null, 'save.log', true);
+
         if (!$request->isPost()) {
             $this->getResponse()->setRedirect($this->getUrl('*/news'));
         }
 
-        $news = Mage::getModel('inchoo_newwssii/news');
+        $id = (int) $request->getParam('id');
+        $news = Mage::getModel('inchoo_newwssii/news')->load($id);
 
-        if ($id = (int) $request->getParam('id')) {
-            $news->load($id);
-        }
+        $user = Mage::getSingleton('admin/session');
+
         try {
-            //getParams and save
+            if ($news->getId()) {
+                Mage::log('updating', null, 'save.log', true);
+                $news->load($id)
+                    ->setData('news', $request->getParam('news'))
+                    ->setData('news_id', $id)
+                    ->setData('author_id', $user->getUser()->getId())
+                    ->setData('is_published', $request->getParam('is_published'))
+                    ->save();
+            }
+            else {
+                // save new
+                Mage::log('creating', null, 'save.log', true);
+                $news->setData('news', $request->getParam('news'))
+                    ->setData('author_id', $user->getUser()->getId())
+                    ->setData('created_at', time())
+                    ->setData('is_published', $request->getParam('is_published'))
+                    ->save();
+            }
 
+            // go to grid
+            $this->_redirect('*/*/');
         }
         catch (Mage_Core_Exception $e) {
-
+            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }
+        $this->_redirect('*/*/');
     }
 
+    public function deleteAction()
+    {
+        if ($id = $this->getRequest()->getParam('id')) {
+            try {
+                // init model and delete
+                $model = Mage::getModel('inchoo_newwssii/news');
+                $model->load($id);
+                $model->delete();
+                // display success message
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('inchoo_newwssii')->__('The news has been deleted.'));
+                // go to grid
+                $this->_redirect('*/*/');
+                return;
+
+            } catch (Exception $e) {
+                // display error message
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                // go back to edit form
+                $this->_redirect('*/*/edit', array('id' => $id));
+                return;
+            }
+        }
+        // display error message
+        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('inchoo_newwssii')->__('Unable to find a news to delete.'));
+        // go to grid
+        $this->_redirect('*/*/');
+
+    }
 }
