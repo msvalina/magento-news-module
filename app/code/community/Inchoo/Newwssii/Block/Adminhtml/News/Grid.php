@@ -15,6 +15,11 @@ class Inchoo_Newwssii_Block_Adminhtml_News_Grid extends Mage_Adminhtml_Block_Wid
     {
 
         $collection = Mage::getModel('inchoo_newwssii/news')->getCollection();
+
+        $collection->getSelect()->joinLeft('admin_user', 'main_table.author_id = admin_user.user_id', array('username'));
+
+        //var_dump((string)$collection->getSelect()); die();
+
         $this->setCollection($collection);
         parent::_prepareCollection();
         return $this;
@@ -27,7 +32,10 @@ class Inchoo_Newwssii_Block_Adminhtml_News_Grid extends Mage_Adminhtml_Block_Wid
         $this->addColumn('news_id', array(
                 'header' => Mage::helper('inchoo_newwssii')->__('ID'),
                 'sortable' => true,
-                'index' => 'news_id')
+                'index' => 'news_id',
+                //'filter_index' => 'main_table.news_id'
+
+            )
         );
         $this->addColumn('news', array(
                 'header' => Mage::helper('inchoo_newwssii')->__('News'),
@@ -35,8 +43,9 @@ class Inchoo_Newwssii_Block_Adminhtml_News_Grid extends Mage_Adminhtml_Block_Wid
                 'type' => 'text',)
         );
         $this->addColumn('author_id', array(
-                'header' => Mage::helper('inchoo_newwssii')->__('Author id/Admin fk'),
-                'index' => 'author_id',)
+                'header' => Mage::helper('inchoo_newwssii')->__('Author'),
+                'index' => 'username'
+            )
         );
         $this->addColumn('is_published', array(
             'header'    => Mage::helper('inchoo_newwssii')->__('Publish status'),
@@ -49,8 +58,8 @@ class Inchoo_Newwssii_Block_Adminhtml_News_Grid extends Mage_Adminhtml_Block_Wid
         ));
         $this->addColumn('created_at', array(
             'header'    => Mage::helper('inchoo_newwssii')->__('Date Created'),
-            'index'     => 'creation_time',
-            'type'      => 'timestamp',
+            'index'     => 'created_at',
+            'type'      => 'datetime',
         ));
 
         return parent::_prepareColumns();

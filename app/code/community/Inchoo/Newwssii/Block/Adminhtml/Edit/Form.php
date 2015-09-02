@@ -15,9 +15,16 @@ class Inchoo_Newwssii_Block_Adminhtml_Edit_Form extends Mage_Adminhtml_Block_Wid
         return Mage::registry('current_news');
     }
 
+    public function getComments()
+    {
+        return Mage::registry('current_comments');
+    }
+
     protected function _prepareForm()
     {
         $model  = $this->getModel();
+        $comments = $this->getComments();
+
 
         $form   = new Varien_Data_Form(array(
             'id'        => 'edit_form',
@@ -55,18 +62,55 @@ class Inchoo_Newwssii_Block_Adminhtml_Edit_Form extends Mage_Adminhtml_Block_Wid
             ),
         ));
 
+
         $form->setValues($model->getData());
         $form->setUseContainer(true);
         $this->setForm($form);
 
+        /* Comments with custom template */
         $comments_block = $this->getLayout()->createBlock('inchoo_newwssii/adminhtml_edit_form_comments')
             ->setTemplate('inchoo_newwssii/comments.phtml');
 
         $this->setChild('form_after', $comments_block);
 
+        /* or with new form without setForm
+
+        $form2   = new Varien_Data_Form(array(
+            'id'        => 'dummy',
+            //'action'    => '',
+            'class' => 'entry-edit'
+        ));
+
+        $form2->setUseContainer(true);
+
+        $additional_fieldset   = $form2->addFieldset('base_fieldset', array(
+            'legend'    => Mage::helper('inchoo_newwssii')->__('Comments'),
+            'class'     => 'fieldset-wide'
+        ));
+
+        if(!$comments->count()) {
+            $additional_fieldset->addField('nocomments', 'label', array(
+                'name'          => 'nocomments',
+                'label'         => Mage::helper('inchoo_newwssii')->__('No comments'),
+                'container_id'  => 'nocomments',
+            ));
+        }
+        else {
+            foreach ($comments as $_comment) {
+                $_id = $_comment->getId();
+                $additional_fieldset->addField('comment' . $_id, 'label', array(
+                    'name'          => 'comment' . $_id,
+                    'label'         => Mage::helper('inchoo_newwssii')->__('Comment: ' . $_id),
+                    'container_id'  => 'comment',
+                    'value'         => $_comment->getComment(),
+                    //'bold'          => true
+                ));
+            }
+        }
+
+        //$this->setChild('form_after', $form2);
+        */
+
         return parent::_prepareForm();
     }
-
-
-
 }

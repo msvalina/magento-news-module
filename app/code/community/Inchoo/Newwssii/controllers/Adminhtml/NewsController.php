@@ -49,6 +49,11 @@ class Inchoo_Newwssii_Adminhtml_NewsController extends Mage_Adminhtml_Controller
             }
         }
 
+        $comments = Mage::getResourceModel('inchoo_newwssii/comment_collection')
+            ->addFieldToFilter('news_id', $model->getId());
+        Mage::register('current_comments', $comments);
+
+
         $this->_title($model->getId() ? $model->getTitle() : $this->__('News Page'));
 
         $this->loadLayout()->_setActiveMenu('news/inchoo_newwssii');
