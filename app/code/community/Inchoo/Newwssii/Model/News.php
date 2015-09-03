@@ -18,4 +18,6 @@ class Inchoo_Newwssii_Model_News extends Mage_Core_Model_Abstract
     }
 
 
+
+
 }

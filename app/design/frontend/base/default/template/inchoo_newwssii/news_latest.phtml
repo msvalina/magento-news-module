@@ -1,10 +1,23 @@
-<h2 class="widget-title">Latest news</h2>
+<?php
+$latest_news = $this->getLatestNews(5);
+?>
 
-<ul class="latest-news">
-    <li><a href="http://magento1.loc/news/detail/view/id/1">News Title 1</a></li>
-    <li><a href="http://magento1.loc/news/detail/view/id/2">News Title 2</a></li>
-    <li><a href="http://magento1.loc/news/detail/view/id/3">News Title 3</a></li>
-</ul>
+<?php if($latest_news->count()) : ?>
 
+    <h2 class="widget-title">Latest news</h2>
 
+    <ul class="latest-news">
+
+    <?php foreach($latest_news as $news): ?>
+        <a href="<?php echo $this->getUrl('news/detail/view', array('id' => $news->getId())) ?>"><li><?php echo $news->getNews(); ?></li></a>
+
+    <?php endforeach ?>
+
+    </ul>
+
+    <a href="<?php echo $this->getUrl('news/index/showall') ?>">
+    <h3 class="widget-title">View All News</h3>
+    </a>
+
+<?php endif ?>
 
