@@ -24,13 +24,13 @@
 
     <p>Comments are disabled</p>
 
-<?php elseif(!$this->getCollection()->count()) : ?>
+<?php elseif(!$this->getComments()->count()) : ?>
 
     <p>No comments</p>
 
 <?php else:  ?>
 
-    <?php foreach ($this->getCollection() as $_comment ): ?>
+    <?php foreach ($this->getComments() as $_comment ): ?>
         <p><?php echo $this->escapeHtml($_comment->getComment()); ?></p>
     <?php endforeach; ?>
 

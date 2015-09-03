@@ -16,15 +16,13 @@ class Inchoo_Newwssii_Block_Detail extends Mage_Core_Block_Template
 
     }
 
-    public function getCollection()
+    public function getComments()
     {
 
         $news = $this->getNews();
 
         if($news->getId()) {
             $comments = $news->getNewsComments();
-            //var_dump($news->getData());
-            //var_dump($comments));
         }
 
         return $comments;
