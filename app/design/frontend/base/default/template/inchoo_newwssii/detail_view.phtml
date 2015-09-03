@@ -22,7 +22,7 @@
 
 <?php if($_comments_enabled === '0') : ?>
 
-    <p>comments are disabled</p>
+    <p>Comments are disabled</p>
 
 <?php elseif(!$this->getCollection()->count()) : ?>
 
@@ -54,7 +54,8 @@
         </form>
 
     <?php else: ?>
-        <p>You should login first man!</p>
+        <br>
+        <p>You should login before commenting man!</p>
 
     <?php endif; ?>
 <?php endif; ?>

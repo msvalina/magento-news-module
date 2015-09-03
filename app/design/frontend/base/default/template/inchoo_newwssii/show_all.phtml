@@ -1,0 +1,20 @@
+<?php
+$all_news = $this->getAllNews();
+?>
+
+<?php if($all_news->count()) : ?>
+
+    <h2 class="widget-title">All News</h2>
+
+    <ul class="latest-news">
+
+        <?php foreach($all_news as $news): ?>
+            <?php if($news->getIsPublished()): ?>
+                <a href="<?php echo $this->getUrl('news/detail/view', array('id' => $news->getId())) ?>"><li><?php echo $news->getNews(); ?></li></a>
+            <?php endif ?>
+        <?php endforeach ?>
+
+    </ul>
+
+
+<?php endif ?>

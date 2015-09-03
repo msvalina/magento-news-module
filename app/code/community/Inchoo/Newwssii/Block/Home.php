@@ -10,8 +10,9 @@ class Inchoo_Newwssii_Block_Home extends Mage_Core_Block_Template
 
     public function getLatestNews($count = 3)
     {
-        $collection = Mage::getModel('inchoo_newwssii/news')->getCollection();
-        $collection->setOrder('news_id', 'DESC');
+        $collection = Mage::getModel('inchoo_newwssii/news')->getCollection()
+            ->addFieldToFilter('is_published', '1')
+            ->setOrder('news_id', 'DESC');
         $collection->getSelect()->limit($count);
 
         return $collection;

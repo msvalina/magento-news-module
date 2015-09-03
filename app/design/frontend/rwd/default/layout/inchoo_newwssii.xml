@@ -25,7 +25,7 @@
 
 
         <reference name="content">
-            <block type="inchoo_newwssii/showall" name="inchoo_newwssii.index_showall"
+            <block type="inchoo_newwssii/news" name="inchoo_newwssii.index_news"
                    template="inchoo_newwssii/show_all.phtml"
             />
         </reference>
