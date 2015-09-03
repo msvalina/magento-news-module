@@ -36,23 +36,34 @@
 
 
 <?php endif; ?>
-
+<br>
 <?php if($_comments_enabled === '1') : ?>
     <?php if ($this->helper('customer')->isLoggedIn()): ?>
-
-        <br>
-        <form method='post' action="<?php echo $this->getUrl('news/detail/commentpost/', array('id' => $_news_id)) ?>">
-
-            Comment:<br>
-            <textarea name='comment' id='comment'></textarea>
-            <br>
-            Comment as:<br>
-            <input type='text' name='name' id='name' value="<?php echo $this->escapeHtml($_customer_name); ?>" readonly/>
-            <br>
-
-            <input type='submit' value='Submit' />
-        </form>
-
+    <form method="post" class="scaffold-form" action="<?php echo $this->getUrl('news/detail/commentpost/', array('id' => $_news_id)) ?>">
+        <div class="fieldset">
+            <ul class="form-list">
+                <li class="wide">
+                    <div class="wide">
+                        <label for="comment" class="required"><em>*</em>Comment</label>
+                        <div class="input-box">
+                            <textarea name='comment' id='comment'></textarea>
+                        </div>
+                    </div>
+                </li>
+                <li class="fields">
+                    <div class="field">
+                        <label for="name">Comment as:</label>
+                        <div class="input-box">
+                            <input type='text' name='name' id='name' value="<?php echo $this->escapeHtml($_customer_name); ?>" readonly/>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="buttons">
+            <button type="submit" title="Submit" class="button"><span><span>Submit</span></span></button>
+        </div>
+    </form>
     <?php else: ?>
         <br>
         <p>You should login before commenting man!</p>
