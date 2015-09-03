@@ -30,18 +30,21 @@ class Inchoo_Newwssii_DetailController extends Mage_Core_Controller_Front_Action
     public function commentPostAction()
     {
         $id = $this->getRequest()->getParam('id', false);
-
         $comments_enabled = Mage::helper('inchoo_newwssii')->getCommentsEnabled();
-        if($comments_enabled === '0') {
+
+        if(!$id || $comments_enabled == '0') {
             Mage::log("Somebody is trying to be funny", null, 'commentspost.log', true);
+            $this->_redirect('news/index/showall');
+            return;
         }
 
+        $news = Mage::getModel('inchoo_newwssii/news')->load($id);
+
         if(!Mage::helper('inchoo_newwssii')->isLoggedIn()) {
-
             $this->_redirect('customer/account/login/');
-
-        } else {
-            if (isset($id)) {
+        }
+        else {
+            if ($news->getId()) {
                 $customer_id = Mage::helper('inchoo_newwssii')->getCustomerId();
 
                 $comment = Mage::getModel('inchoo_newwssii/comment');
@@ -56,8 +59,12 @@ class Inchoo_Newwssii_DetailController extends Mage_Core_Controller_Front_Action
                     Mage::logException($e);
                     $this->_redirect('news/index/showall/');
                 }
+
+                $this->_redirect('news/detail/view', array('id' => $id));
             }
-            $this->_redirect('news/detail/view/', array('id' => $id));
+            else {
+                $this->_redirect('news/index/showall/');
+            }
         }
     }
 }
