@@ -18,19 +18,21 @@
 
 </div>
 
-<h2>Comments</h2>
-
 <?php if($_comments_enabled === '0') : ?>
 
-    <p>Comments are disabled</p>
+    <h2>Comments are disabled</h2>
 
-<?php elseif(!$this->getComments()->count()) : ?>
+<?php elseif(!$_comment_count = $this->getComments()->count()) : ?>
 
-    <p>No comments</p>
+    <h2>No comments</h2>
 
 <?php else:  ?>
 
+    <h2><?php echo $_comment_count ?> comments: </h2>
+
     <?php foreach ($this->getComments() as $_comment ): ?>
+        <strong><?php echo $_comment->getCreatedAt() ?></strong>
+        <em><?php echo $this->escapeHtml($_comment->getName()) ?> says: </em>
         <p><?php echo $this->escapeHtml($_comment->getComment()); ?></p>
     <?php endforeach; ?>
 

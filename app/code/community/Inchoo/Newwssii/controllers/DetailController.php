@@ -52,6 +52,7 @@ class Inchoo_Newwssii_DetailController extends Mage_Core_Controller_Front_Action
                 $comment->setData('comment', $this->getRequest()->getParam('comment'));
                 $comment->setData('news_id', $id);
                 $comment->setData('author_id', $customer_id);
+                $comment->setData('created_at', time());
 
                 try {
                     $comment->save();
