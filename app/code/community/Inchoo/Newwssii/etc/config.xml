@@ -57,6 +57,15 @@
                 <class>Inchoo_Newwssii_Helper</class>
             </inchoo_newwssii>
         </helpers>
+        <template>
+            <email>
+                <inchoo_newwssii_email_settings_email_template>
+                    <label>Inchoo Newwssi Admin Comment Notify</label>
+                    <file>inchoo_admin_comment_notifier.html</file>
+                    <type>html</type>
+                </inchoo_newwssii_email_settings_email_template>
+            </email>
+        </template>
     </global>
     <admin>
         <routers>
@@ -74,6 +83,9 @@
             <settings>
                 <comments_enabled>1</comments_enabled>
             </settings>
+            <email_settings>
+                <email_template>inchoo_newwssii_email_settings_email_template</email_template>
+            </email_settings>
         </inchoo_newwssii>
     </default>
 </config>

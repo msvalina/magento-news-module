@@ -61,6 +61,13 @@ class Inchoo_Newwssii_DetailController extends Mage_Core_Controller_Front_Action
                     $this->_redirect('news/index/showall/');
                 }
 
+                // Trigger sending mail to admin
+                if(Mage::helper('inchoo_newwssii/email')->getEmailAdminOnComment()) {
+                    Mage::register('current_comment', $comment);
+                    $news->sendAdminNotificationEmail();
+                }
+
+
                 $this->_redirect('news/detail/view', array('id' => $id));
             }
             else {
